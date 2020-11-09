@@ -17,8 +17,8 @@ public class Core {
 
     public Core() {
         createProcesses();
-        planThreads();
-        completeThreads();
+        plan();
+        perform();
     }
 
     public void createProcesses() {
@@ -30,7 +30,7 @@ public class Core {
         }
     }
 
-    public void planThreads() {
+    public void plan() {
         threads = new ArrayList<>();
 
         Process currentProc;
@@ -50,7 +50,7 @@ public class Core {
         System.out.println("Список потоков составлен");
     }
 
-    public void completeThreads() {
+    public void perform() {
         int givenTime = 0;
         int requiredTime = 0;
 
