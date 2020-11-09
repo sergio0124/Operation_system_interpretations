@@ -24,11 +24,13 @@ public class Thread {
         {
             res = amount - executionTime;
             executionTime = 0;
+            System.out.println("Поток выполнен");
         }
         else
         {
             res = 0;
             executionTime -= amount;
+            System.out.println("Поток не выполнен");
         }
         return res;
     }

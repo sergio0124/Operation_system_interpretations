@@ -33,6 +33,16 @@ public class Process {
         return null;
     }
 
+    public Thread getThread(int index)
+    {
+        if(getThreadCount() > 0 && index<threads.size())
+        {
+            Thread res = threads.get(index);
+            return res;
+        }
+        return null;
+    }
+
     @Override
     public String toString()
     {
