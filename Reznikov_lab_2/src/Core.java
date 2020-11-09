@@ -61,14 +61,7 @@ public class Core {
             givenTime += currentQuant;
             while (currentQuant > 0 && threads.size() > 0) {
 
-                int size = 0;
-                for (int i = 0; i < threads.size(); i++) {
-                    if (threads.get(i).getExecutionTime() > size) {
-                        currentThread = threads.get(i);
-                        size = currentThread.getExecutionTime();
-                    }
-                }
-
+                currentThread = threads.remove(0);
                 System.out.println("Размер кванта = " + currentQuant);
                 requiredTime += currentThread.getExecutionTime();
 
@@ -80,7 +73,9 @@ public class Core {
 
                 if (currentThread.getExecutionTime() == 0)
                     threads.remove(currentThread);
-                size = 0;
+                else {
+                    threads.add(currentThread);
+                }
             }
             System.out.println();
         }
