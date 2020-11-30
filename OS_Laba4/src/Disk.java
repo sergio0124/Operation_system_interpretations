@@ -22,15 +22,6 @@ public class Disk {
         }
 
         int place = -1;
-        for (int i = 0; i < TRY_NUMBER; i++) {
-            place = (int) (Math.random() * sectors.length);
-            if (sectors[place] == null) {
-                break;
-            } else {
-                place = -1;
-            }
-        }
-
         if (place == -1) {
             for (int i = 0; i < sectors.length; i++) {
                 if (sectors[i] == null) {
