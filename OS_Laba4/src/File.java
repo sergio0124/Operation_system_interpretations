@@ -6,7 +6,6 @@ public class File {
 
     public String name;
     private Sector sector;
-    public int size=0;
 
     public File(String name, Sector sector) {
         this.name = name;
