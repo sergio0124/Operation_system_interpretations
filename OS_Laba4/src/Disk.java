@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.util.ArrayList;
 
 /*Содержит массив секторов строгого размера, через диск выполняется создание секторов с помощью рекурсии,
  удаление секторов, отрисовка секторов. */
@@ -13,6 +12,33 @@ public class Disk {
     public Disk(int diskSize, int sectorSize) {
         this.sectorSize = sectorSize;
         sectors = new Sector[diskSize / sectorSize];
+    }
+
+    public void setSector(INode inode, int size){
+        int count = size;
+        while(count>0){
+            int place = -1;
+            for (int i = 0; i < TRY_NUMBER; i++) {
+                place = (int) (Math.random() * sectors.length);
+                if (sectors[place] == null) {
+                    break;
+                } else {
+                    place = -1;
+                }
+            }
+
+            if (place == -1) {
+                for (int i = 0; i < sectors.length; i++) {
+                    if (sectors[i] == null) {
+                        place = i;
+                        break;
+                    }
+                }
+            }
+            sectors[place]=new Sector();
+            inode.addSector(sectors[place]);
+            count-=sectorSize;
+        }
     }
 
     public Sector setSector(int size) {
@@ -109,9 +135,21 @@ public class Disk {
                 delete(f);
             }
         } else {
-            recDeleteSector(file.getSector());
+            delete(file.getiNode());
         }
         return;
+    }
+
+    public void delete(INode inode){
+        for (Sector sector: inode.sectors
+             ) {
+            for(int i=0;i<sectors.length;i++){
+                if(sectors[i]==sector){
+                    sectors[i]=null;
+                    break;
+                }
+            }
+        }
     }
 
     private void recDeleteSector(Sector sector) {

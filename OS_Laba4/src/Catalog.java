@@ -64,8 +64,9 @@ public class Catalog extends File {
                 c.addIntoDisk((Catalog) file, disk, sectorSize);
             }
             else if (file instanceof File) {
-                Sector sector = disk.setSector(file.getSize(sectorSize));
-                File f = new File(file.getName(), sector);
+                INode inode = new INode();
+                disk.setSector(inode, file.getSize(sectorSize));
+                File f = new File(file.getName(), inode);
                 (this).add(f);
             }
         }

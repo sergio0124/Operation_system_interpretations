@@ -5,11 +5,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public class File {
 
     public String name;
-    private Sector sector;
+    private INode iNode = new INode();
 
-    public File(String name, Sector sector) {
+    public File(String name, INode inode) {
         this.name = name;
-        this.sector = sector;
+        this.iNode = inode;
     }
 
     public File(String str) {
@@ -26,19 +26,19 @@ public class File {
     }
 
     public void enSelect() {
-        if (sector != null) {
-            sector.setSelected();
+        if (iNode != null) {
+            iNode.setSelected();
         }
     }
 
-    public Sector getSector() {
-        return sector;
+    public INode getiNode() {
+        return iNode;
     }
 
     public int getSize(int sectorSize) {
         int result = 0;
-        if (sector != null) {
-            result = sector.getSize(sectorSize);
+        if (iNode != null) {
+            result = iNode.getSize(sectorSize);
         }
         return result;
     }

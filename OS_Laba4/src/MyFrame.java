@@ -134,7 +134,12 @@ public class MyFrame implements TreeSelectionListener {
                 Object file = node.getUserObject();
 
                 fileSystem.deleteFile((File) file);
-                disk.delete((File) file);
+                if(file instanceof Catalog) {
+                    disk.delete((Catalog)file);
+                }
+                else{
+                    disk.delete(((File) file).getiNode());
+                }
                 Tree.updateUI();
                 panel.repaint();
             }
@@ -179,9 +184,9 @@ public class MyFrame implements TreeSelectionListener {
                 return;
             }
 
-            Sector sector = disk.setSector(fileSize);
-            File file = new File(fileName, sector);
-
+            INode inode = new INode();
+            disk.setSector(inode,fileSize);
+            File file = new File(fileName, inode);
             ((Catalog) nodeInfo).add(file);
 
             panel.repaint();
@@ -284,7 +289,8 @@ public class MyFrame implements TreeSelectionListener {
                     } else {
 
                         Sector sector = disk.setSector(tmp.getSize(finalSectorSize));
-                        File file = new File(tmp.getName(), sector);
+                        INode inode = new INode(sector);
+                        File file = new File(tmp.getName(), inode);
                         ((Catalog) parent).add(file);
                         node.add(file.getDefaultMutableTreeNode());
                     }
@@ -387,7 +393,7 @@ public class MyFrame implements TreeSelectionListener {
                     return;
                 }
 
-                Sector sector = file.getSector();
+                Sector sector = file.getiNode().getSector();
                 disk.enlarge(sector, extraSize);
 
                 disk.disSelect();
